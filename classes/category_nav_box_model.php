@@ -2,25 +2,31 @@
 
 class Category_Nav_Box_Model {
 
-	public static $data;
-	public static $data_count;
-	public static $navigation;
+	public $data;
+	public $data_count;
+	public $navigation;
+
+	public function __construct() {
+		
+	$this->initialize();
+
+	}
 	
-	public static function initialize() {
+	public function initialize() {
 
-	self::set_data();
-	self::count_data();
-	self::build_navigation();
+	$this->set_data();
+	$this->count_data();
+	// $this->build_navigation();
 		
 	}
 
-	private static function set_data() {
+	private function set_data() {
 		
-	self::$data = get_categories();
+	$this->data = get_categories();
 
 	}
 
-	private static function get_categories( $where = "" ) {
+	private function get_categories( $where = "" ) {
 
 		global $db;
 			
@@ -42,27 +48,27 @@ class Category_Nav_Box_Model {
 
 	}
 
-	private static function get_cat_by_condition( $field, $value ) {
+	private function get_cat_by_condition( $field, $value ) {
 
 	$where = $field . " = " . $value;
 		
-	$father = self::get_categories( $where );
+	$father = $this->get_categories( $where );
 
 	return $father;
 
 	}
 
-	public static function build_navigation() {
+	public function build_navigation() {
 
 	$output = "<ul>";
 		
-		foreach(self::$data as $index => $data):
+		foreach($this->data as $index => $data):
 
 			$output .= "<li>";
 
 				if($data['cat_father_id'] == 0):
 
-				$child = self::get_cat_by_condition('cat_father_id', $data['cat_id']);
+				$child = $this->get_cat_by_condition('cat_father_id', $data['cat_id']);
 
 				$output .= "<ul><li>";
 
@@ -72,7 +78,7 @@ class Category_Nav_Box_Model {
 
 				$output .= $child[0]['cat_name'];
 
-				$grand_child = self::get_cat_by_condition('cat_father_id', $child['cat_id']);
+				$grand_child = $this->get_cat_by_condition('cat_father_id', $child['cat_id']);
 
 					if($grand_child[0]['cat_id']):
 
@@ -92,7 +98,7 @@ class Category_Nav_Box_Model {
 
 						else:
 
-							$father = self::get_cat_by_condition("cat_id", $data['cat_father_id']);
+							$father = $this->get_cat_by_condition("cat_id", $data['cat_father_id']);
 
 							if($father[0]['cat_father_id'] == 0):
 
@@ -110,7 +116,7 @@ class Category_Nav_Box_Model {
 
 								else:
 
-									$grand_father = self::get_cat_by_condition("cat_id", $father[0]['cat_father_id']);
+									$grand_father = $this->get_cat_by_condition("cat_id", $father[0]['cat_father_id']);
 
 									if($grand_father[0]['cat_father_id'] == 0):
 
@@ -144,13 +150,13 @@ class Category_Nav_Box_Model {
 
 	$output .= "</ul>";
 
-	self::$navigation = $output;
+	$this->navigation = $output;
 
 	}
 
-	public static function count_data() {
+	public function count_data() {
 		
-	self::$data_count = count(self::$data);
+	$this->data_count = count($this->data);
 
 	}
 
