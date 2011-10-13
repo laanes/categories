@@ -20,18 +20,18 @@ class Category_Nav_Box_Model {
 		
 	}
 
-	private function set_data() {
+	public function set_data() {
 		
-	$this->data = get_categories();
+	$this->data = $this->get_categories();
 
 	}
 
-	private function get_categories( $where = "" ) {
+	public function get_categories( $where = "" ) {
 
 		global $db;
 			
 			$sql = 
-			"SELECT cat_id, cat_father_id, cat_name 
+			"SELECT DISTINCT(cat_name), cat_id, cat_father_id 
 			FROM CubeCart_category";
 
 			if(!empty( $where )):
@@ -39,6 +39,8 @@ class Category_Nav_Box_Model {
 			$sql .= " WHERE " . $where; 
 
 			endif;
+
+			// $sql .= " GROUP BY cat_name";
 
 			if($db->select($sql)):
 
@@ -48,7 +50,7 @@ class Category_Nav_Box_Model {
 
 	}
 
-	private function get_cat_by_condition( $field, $value ) {
+	public function get_cat_by_condition( $field, $value ) {
 
 	$where = $field . " = " . $value;
 		

@@ -22,21 +22,31 @@ if($categories->data) {
 		
 foreach($categories->data as $index => $data):
 
+	// echo "<pre>";
+
+	// print_r($data);
+
+	// echo "</pre>";
+
 	if($data['cat_father_id'] == 0):
+															
+	$child = $categories->get_cat_by_condition('cat_father_id', $data['cat_id']); 
 
-	$child = $categories->get_cat_by_condition('cat_father_id', $data['cat_id']);
+	$nav_box->assign('CAT_NAME', $data[0]['cat_name']); ## ACCESS CONTROL
 
-	$nav_box->assign('CAT_NAME', $data[0]['cat_name']);
+	$nav_box->assign('CHILD_CAT_NAME', $child[0]['cat_name']); ## SALTO
 
-	$nav_box->assign('CHILD_CAT_NAME', $child[0]['cat_name']);
-
-	$grand_child = $categories->get_cat_by_condition('cat_father_id', $child['cat_id']);
+	$grand_child = $categories->get_cat_by_condition('cat_father_id', $child[0]['cat_id']);
 
 		if($grand_child[0]['cat_id']):
 
-		$nav_box->assign('GRAND_CHILD_CAT_NAME', $grand_child[0]['cat_name']);
+			for($i=0; $i<=count($grand_child)-1; $i++):
 
-		$nav_box->parse('categories.category_loop.has_no_father.has_grand_child');
+			$nav_box->assign('GRAND_CHILD_CAT_NAME', $grand_child[$i]['cat_name']);
+
+			$nav_box->parse('categories.category_loop.has_no_father.grand_child');
+
+			endfor;
 
 		endif;
 
@@ -45,6 +55,12 @@ foreach($categories->data as $index => $data):
 		else:
 
 		$father = $categories->get_cat_by_condition("cat_id", $data['cat_father_id']);
+
+		// echo "<pre>";
+
+		// print_r($father);
+
+		// echo "</pre>";
 
 			if($father[0]['cat_father_id'] == 0):
 
@@ -72,7 +88,11 @@ foreach($categories->data as $index => $data):
 
 			endif;
 
+			$nav_box->parse('categories.category_loop.has_father');
+
 		endif;
+
+$nav_box->parse('categories.category_loop');
 
 endforeach;
 
