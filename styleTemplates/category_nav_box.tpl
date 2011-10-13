@@ -1,4 +1,4 @@
-BEGIN: categories -->
+<!-- BEGIN: categories -->
 
 <ul>
 
@@ -6,19 +6,24 @@ BEGIN: categories -->
 
 	<!-- BEGIN: has_no_father -->
 
-		<li>{CAT_NAME}
+		<li>{CAT_NAME}<ul>
 
-			<ul><li>{CHILD_CAT_NAME}
+			<!-- BEGIN: child_loop -->
 
-				<!-- BEGIN: grand_child -->
+			 	<li>{CHILD_CAT_NAME}<ul>
 
-					<ul><li>{GRAND_CHILD_CAT_NAME}</li></ul>
+					<!-- BEGIN: grand_child_loop -->
 
-				<!-- END: grand_child -->
+					<li>{GRAND_CHILD_CAT_NAME}</li></ul>
 
-			</li></ul>
+					<!-- END: grand_child_loop -->
+
+					</li></ul>
+
+			<!-- END: child_loop -->
 
 		</li>
+
 
 	<!-- END: has_no_father -->
 
@@ -28,7 +33,11 @@ BEGIN: categories -->
 
 			<li>{FATHER_CAT_NAME}
 
+				<!-- BEGIN: sub_loop -->
+
 				<ul><li>{CAT_NAME}</li></ul>
+
+				<!-- END: sub_loop -->
 
 			</li>
 
@@ -36,19 +45,23 @@ BEGIN: categories -->
 
 		<!-- BEGIN: has_grand_father -->
 
-			<li>{GRAND_FATHER_CAT_NAME}
+			<li>{GRAND_FATHER_CAT_NAME}<ul>
 
-				<ul><li>{FATHER_CAT_NAME}
+				<!-- BEGIN: father_cat_loop -->
 
-					<!-- BEGIN: sub_loop -->
+				<li>{FATHER_CAT_NAME}<ul>
 
-					<ul><li>{CAT_NAME}</li></ul>
+					<!-- BEGIN: cat_loop -->
 
-					<!-- END: sub_loop -->
+					<li>{CAT_NAME}</li></ul>
 
-				</li></ul>
+					<!-- END: cat_loop -->
 
-			</li>
+					</li></ul>
+
+				<!-- END: father_cat_loop -->
+
+				</li>
 
 		<!-- END: has_grand_father -->
 
@@ -58,4 +71,4 @@ BEGIN: categories -->
 
 </ul>
 
-<!-- END: categories
+<!-- END: categories -->
