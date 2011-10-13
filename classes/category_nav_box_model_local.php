@@ -33,16 +33,53 @@ class Category_Nav_Box_Model {
 
 	public function set_properties() {
 		
-	$this->first_level = $this->get_categories( "cat_father_id", 0 );
+	$first_level = $this->get_categories( "cat_father_id = 0" );
 
-	foreach($this->first_level as $cats) {
+	foreach($first_level as $cat):
+
+	$second_level[] = $this->get_categories( "cat_father_id = " . $cat['cat_id'] );
+
+	endforeach;
+
+	foreach($second_level as $key => $value):
+
+	foreach($value as $k => $v) {
 		
-	$this->second_level =  $this->get_categories( "cat_id", $cats['cat_father_id'] );
+	$second[] = $v;
+
+	$third[] = $this->get_categories( "cat_father_id = " . $v['cat_id'] );
+
+	}
+
+	endforeach;
+
+	foreach($third as $key => $value) {
+
+	if(is_array($value)) {
+		
+	foreach($value as $m => $c) {
+		
+	$third_level[] = $c;
 
 	}
 
 	}
 
+	else {
+		
+	$third_level[] = $value;
+
+	}
+
+	}
+
+	$this->first_level = $first_level;
+
+	$this->second_level = $second;
+
+	$this->third_level = $third_level;
+	
+	}
 
 	public function get_categories( $where = "" ) {
 
@@ -57,8 +94,6 @@ class Category_Nav_Box_Model {
 			$sql .= " WHERE " . $where; 
 
 			endif;
-
-			// $sql .= " GROUP BY cat_name";
 
 			if($this->select($sql)):
 
