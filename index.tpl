@@ -9,16 +9,19 @@
 <meta name="keywords" content="{META_KEYWORDS}" />
 
 <link href="skins/{VAL_SKIN}/styleSheets/layout.css" rel="stylesheet" type="text/css" />
+<link href="skins/{VAL_SKIN}/styleSheets/category_nav_box.css" rel="stylesheet" type="text/css" />
 <link href="modules/3rdparty/STP_Slideshow/css/flexslider.css" rel="stylesheet" type="text/css" />
 <!-- start Advanced DHTML Menu by convict (c)2007-2008 http://cubecart-mods-skins.com -->
 <!--[if gte IE 8]><link rel="stylesheet" type="text/css" href="skins/{VAL_SKIN}/styleSheets/ie8-and-up.css" /><![endif]-->
 <!--[if IE 7]><link href="skins/{VAL_SKIN}/styleSheets/IE7.css" rel="stylesheet" type="text/css" /><![endif]-->
 <!--[if IE 6]><link href="skins/{VAL_SKIN}/styleSheets/IE6.css" rel="stylesheet" type="text/css" /><![endif]-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
 {RESOLUTION_CHECK}
 <script type="text/javascript" src="js/jQuery/jquery.url.js"></script>
 <script type="text/javascript" src="js/jQuery/basketEffect.js"></script>
 <script type="text/javascript" src="js/jQuery/jQueryEffects.js"></script>
+<script type="text/javascript" src="js/jQuery/category_nav_box.js"></script>
 <script type="text/javascript" src="modules/3rdparty/Advanced_Product_Filtering/js/advanced_filtering/jquery_advanced_filtering.js"></script>
 
 <script type="text/javascript" src="modules/3rdparty/Homepage_Categories/js/homepage_categories_interaction.js"></script>
@@ -76,7 +79,6 @@ var fileLoadingImage = '{VAL_ROOTREL}images/lightbox/loading.gif';
   <div class="colLeft">
   	{INFO_LINKS}
 	{FILTER_BOX}
-	{CAT_NAV_BOX}
 	{RANGES}
 	{FINISHES}
 <!-- 	{CATEGORIES} -->
@@ -96,6 +98,7 @@ var fileLoadingImage = '{VAL_ROOTREL}images/lightbox/loading.gif';
 		<td valign="top">
 
   <div class="colMid">
+  	{CAT_NAV_BOX}
   	{ADDED_ITEMS}
 	{HOMEPAGE_CATEGORIES}
 	{PAGE_CONTENT}  

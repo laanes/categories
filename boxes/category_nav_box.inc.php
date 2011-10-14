@@ -18,40 +18,37 @@ require_once('modules'.CC_DS.'3rdparty'.CC_DS.'categories'.CC_DS.'classes'.CC_DS
 
 if($categories->data) {
 
-$open_list  = "<ul><li>";
-$close_list = "</ul></li>";
-
 $nav_box = new XTemplate ('boxes'.CC_DS.'category_nav_box.tpl');
 
-	$first_level = $categories->get_categories('cat_father_id = 0');
+$first = $categories->get_categories('cat_father_id = 0'); 
 
-	$output = "";
+$output .= '<ul id="nav">';
 
-	for($i=0; $i<=count($first_level)-1; $i++) {
+for($i=0; $i<=count($first)-1; $i++) { 
 
-	$second_level = $categories->get_categories('cat_father_id =' . $first_level[$i]['cat_id']);
+$second = $categories->get_categories('cat_father_id =' . $first[$i]['cat_id']); 
 
-		$output .= $open_list . $first_level[$i]['cat_name'];
+$output .= "<li>" . "<a>" . $first[$i]['cat_name'] . "</a>"; 
 
+for($j=0; $j<=count($second)-1; $j++) { 
 
-	for($j=0; $j<=count($second_level)-1; $j++) { 
+$output .= "<ul><li>" . "<a>" . $second[$j]['cat_name'] . "</a>"; 
 
-	$third_level = $categories->get_categories('cat_father_id = ' . $second_level[$j]['cat_id']);
+$third = $categories->get_categories('cat_father_id = ' . $second[$j]['cat_id']);
 
-		$output .= $open_list . $second_level[$j]['cat_name'];
+for($k=0; $k<=count($third)-1; $k++) {
 
-	
-	for($k=0; $k<=count($third_level)-1; $k++) {
+$output .= "<ul><li>" . "<a>" . $third[$k]['cat_name'] . "</a>" . "</li></ul>"; } 
 
-		$output .= $open_list . $third_level[$k]['cat_name'] . $close_list;
+$output .= "</li></ul>";
 
-	}
+ } 
 
-		$output .= $close_list;
-	}
+$output .= "</li>";
 
-		$output .= $close_list;
-	}
+ } 
+
+$output .= "</ul>";
 
 $nav_box->assign('CATEGORY_NAVIGATION', $output);
 		
@@ -62,3 +59,5 @@ $nav_box = $nav_box->text('categories');
 }
 
 ?>
+
+<ul>
