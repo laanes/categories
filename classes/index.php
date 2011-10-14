@@ -18,11 +18,13 @@ for($k=0; $k<=count($third)-1; $k++) {
 
 echo "<ul><li>" . $third[$k]['cat_name'] .  "</li></ul>";  } 
 
+echo "</li></ul>";
+
 }
 
 ?>
 
-</li></ul>
+
 </li></ul>
 
 <?php } ?>
