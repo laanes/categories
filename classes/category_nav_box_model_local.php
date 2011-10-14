@@ -20,7 +20,7 @@ class Category_Nav_Box_Model {
 
 	$this->set_data();
 	$this->count_data();
-	$this->set_properties();
+	// $this->set_properties();
 	// $this->build_navigation();
 		
 	}
@@ -33,51 +33,9 @@ class Category_Nav_Box_Model {
 
 	public function set_properties() {
 		
-	$first_level = $this->get_categories( "cat_father_id = 0" );
+	$categories['first_level'] = $this->get_categories( "cat_father_id = 0" );
 
-	foreach($first_level as $cat):
-
-	$second_level[] = $this->get_categories( "cat_father_id = " . $cat['cat_id'] );
-
-	endforeach;
-
-	foreach($second_level as $key => $value):
-
-	foreach($value as $k => $v) {
-		
-	$second[] = $v;
-
-	$third[] = $this->get_categories( "cat_father_id = " . $v['cat_id'] );
-
-	}
-
-	endforeach;
-
-	foreach($third as $key => $value) {
-
-	if(is_array($value)) {
-		
-	foreach($value as $m => $c) {
-		
-	$third_level[] = $c;
-
-	}
-
-	}
-
-	else {
-		
-	$third_level[] = $value;
-
-	}
-
-	}
-
-	$this->first_level = $first_level;
-
-	$this->second_level = $second;
-
-	$this->third_level = $third_level;
+	$this->first_level = $categories;
 	
 	}
 
@@ -149,6 +107,6 @@ class Category_Nav_Box_Model {
 
 $cat = new Category_Nav_Box_Model();
 
-var_dump($cat);
+
 
 ?>
