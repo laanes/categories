@@ -1,33 +1,62 @@
 <?php require_once('category_nav_box_model_local.php'); 
 
-$categories = $cat->get_categories('cat_father_id = 0'); ?>
+$categories = $cat->get_categories('cat_father_id = 0');
 
-<ul>
-
-<?php
+$output = "<ul>";
 
 for($i=0; $i<=count($categories)-1; $i++) { 
 
-$second = $cat->get_categories('cat_father_id =' . $categories[$i]['cat_id']); ?>
+$second = $cat->get_categories('cat_father_id = ' . $categories[$i]['cat_id']); 
 
-<li> <?php echo $categories[$i]['cat_name']; ?>
+$output .= "<li>" . $categories[$i]['cat_name'];
 
-<?php for($j=0; $j<=count($second)-1; $j++) { ?>
+if(isset($second[$i]['cat_id'])) {
 
-<ul><li> <?php echo $second[$j]['cat_name']; 
+$output .= "<ul>";
+
+for($j=0; $j<=count($second)-1; $j++) { 
+
+$output .= "<li>" . $second[$j]['cat_name'];
 
 $third = $cat->get_categories('cat_father_id = ' . $second[$j]['cat_id']);
 
+if(isset($third[$j]['cat_id'])) {
+
+$output .= "<ul>";
+
 for($k=0; $k<=count($third)-1; $k++) {
 
-echo "<ul><li>" . $third[$k]['cat_name'] .  "</li></ul>";  } ?>
+$output .= "<li>" . $third[$k]['cat_name'] . "</li>";
 
-</li></ul>
+if($k == count($third)-1) { $output .= "</ul>"; }
 
-<?php } ?>
+}
 
-</li></li>
+}
 
-<?php } ?>
+else {
+	
+$output .= "</li>";
 
-</ul>
+}
+
+if($j == count($second)-1) { $output .= "</ul>"; }
+
+}
+
+}
+
+else {
+	
+$output .= "</li>";
+
+}
+
+}
+
+$output .= "</ul>";
+
+echo $output;
+
+?>
+
