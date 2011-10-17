@@ -9,10 +9,9 @@ class Category_Page_Controller extends Page_Model {
 	public  $productCount;
 
 
-	/* Range properties */
-	public 	$range_name;
-	public 	$range_title;
-	public  $range_description;
+	/* cat properties */
+	public 	$cat_name;
+	public  $cat_id;
 
 
 	public function __construct( $context = "" ) {
@@ -21,7 +20,7 @@ class Category_Page_Controller extends Page_Model {
 
 		parent::$context_id = $_GET['catId'];
 
-			$this->set_range_properties();
+			$this->set_cat_properties();
 
 				parent::__construct();
 
@@ -43,9 +42,9 @@ class Category_Page_Controller extends Page_Model {
 
 	}
 
-	private function set_range_properties() {
+	private function set_cat_properties() {
 		
-	$data = $this->get_data_by_id( array( 'range_name', 'range_description', 'range_title' ), 'lock_tech_ranges', 'range_id', parent::$context_id );
+	$data = $this->get_data_by_id( array( 'cat_name', 'cat_desc' ), 'CubeCart_category', 'cat_id', parent::$context_id );
 
 		foreach( $data as $field_name => $value ):
 
