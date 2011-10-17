@@ -20,7 +20,13 @@ if($categories->data) {
 
 $nav_box = new XTemplate ('boxes'.CC_DS.'category_nav_box.tpl');
 
+<<<<<<< HEAD
 $nav_box->assign('CATEGORY_NAVIGATION', $categories->navigation);
+=======
+$navigation = $categories->navigation;
+
+$nav_box->assign('CATEGORY_NAVIGATION', $navigation);
+>>>>>>> 6f87fc506d0f230f4a9b91cca2271b90f03ec7c9
 		
 $nav_box->parse('categories');
 

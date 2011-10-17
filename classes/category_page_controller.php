@@ -12,6 +12,9 @@ class Category_Page_Controller extends Page_Model {
 	/* cat properties */
 	public 	$cat_name;
 	public  $cat_id;
+	public  $cat_desc;
+	public  $cat_title;
+
 
 
 	public function __construct( $context = "" ) {
@@ -44,7 +47,7 @@ class Category_Page_Controller extends Page_Model {
 
 	private function set_cat_properties() {
 		
-	$data = $this->get_data_by_id( array( 'cat_name', 'cat_desc' ), 'CubeCart_category', 'cat_id', parent::$context_id );
+	$data = $this->get_data_by_id( array( 'cat_name' ), 'CubeCart_category', 'cat_id', parent::$context_id );
 
 		foreach( $data as $field_name => $value ):
 
